@@ -1,0 +1,65 @@
+<app-navbar></app-navbar>
+<div class="contenitore">
+  <form [formGroup]="formReactive" (ngSubmit)="onSubmit()">
+    <div class="row div-input">
+      <div class="d-none">
+        <input type="hidden" formControlName="id">
+      </div>
+      <div class="col-auto ">
+          <label class="form-label">name</label>
+          <input type="text" class="form-control"  placeholder="name" formControlName="name">
+      </div>
+      <div class="col-auto">
+          <label  class="form-label">username</label>
+          <input type="text" class="form-control"  placeholder="username" formControlName="username" >
+      </div>
+      <div class="col-auto">
+          <label  class="form-label">email</label>
+          <input type="email" class="form-control"  placeholder="email" formControlName="email">
+      </div>
+    </div>
+    <div class="row div-input" formGroupName="address">
+      <div class="col-auto">
+        <label  class="form-label">street</label>
+        <input type="text" class="form-control"  placeholder="street" formControlName="street">
+      </div>
+      <div class="col-auto">
+        <label  class="form-label">suite</label>
+        <input type="text" class="form-control"  placeholder="suite" formControlName="suite">
+      </div>
+      <div class="col-auto">
+        <label  class="form-label">city</label>
+        <input type="text" class="form-control"  placeholder="city" formControlName="city">
+      </div>
+      <div class="col-auto">
+        <label  class="form-label">zipcode</label>
+        <input type="text" class="form-control"  placeholder="zipcode" formControlName="zipcode">
+      </div>
+      <div class="row div-input" formGroupName="geo">
+        <h4>Geolocalizzazione</h4>
+        <div class="col-auto">
+          <label>Lat</label>
+          <input type="text" class="form-control"  placeholder="Lat" formControlName="lat">
+        </div>
+        <div class="col-auto">
+          <label>Lng</label>
+          <input type="text" class="form-control"  placeholder="Lng" formControlName="lng">
+        </div>
+      </div>
+    </div>
+      
+    <div class="row div-input">
+        <button type="submit" class="btn btn-success">Registra</button>
+    </div>
+  </form>
+</div>
+<div class="contenitore">
+  <div class="col-auto contenitore" >
+    <ul>
+      <h1>Utenti in lista</h1>
+        <li *ngFor="let item of utenti">
+            {{item.id}}# {{item.name}}
+        </li>
+    </ul>
+    </div>
+</div>

@@ -17,13 +17,26 @@ export class HomeComponent implements OnInit{
   markerPosition!: google.maps.LatLngLiteral ;
   constructor(private service:ServiceService){}
   async ngOnInit(): Promise<void>  {
-    this.service.getUtenti().subscribe((data)=> {
-      this.utenti=data
-    },
-    (error) => {
-      console.error('Errore durante il recupero dei dati', error);
-    })
     await this.initMap();
+    let list=JSON.parse(localStorage.getItem('utenti')??'')
+    if(list.length==0){
+      this.service.getUtenti().subscribe({
+      next: (data) => {
+        this.utenti = data;
+        
+      },
+      error: (error) => {
+        console.error('Errore durante il recupero dei dati', error);
+      },
+      complete: () => {
+    
+      }
+    });
+    }
+    else{
+      this.utenti=list
+    }
+    
   }
 
 
@@ -45,13 +58,15 @@ export class HomeComponent implements OnInit{
     const marker = new AdvancedMarkerElement({
       map: this.map,
       position: position,
-      title: 'Uluru'
+      title: 'geo'
     });
   }
 
   getUtenteService(idutente:number){
     this.utente=[]
+    
     this.service.getUtente(idutente).subscribe((data)=>{
+      console.log('sono dentro la ricerca '+data)
       this.utente.push(data)
       const geoObject = this.utente[0].address.geo;
       if (geoObject && typeof geoObject.lat === 'string' && typeof geoObject.lng === 'string') {
@@ -59,7 +74,6 @@ export class HomeComponent implements OnInit{
           lat: parseFloat(geoObject.lat), 
           lng: parseFloat(geoObject.lng)  
         };
-        console.log(this.markerPosition);
         this.initMap(); 
       } else {
         console.error('Coordinate non valide:', geoObject);
@@ -67,7 +81,6 @@ export class HomeComponent implements OnInit{
     },
     (error) => {
       console.error('Errore nella richiesta HTTP:', error);
-      console.log(idutente)
     })
     
   }
