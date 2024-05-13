@@ -19,17 +19,17 @@ export class FormReactiveComponent implements OnInit{
 
     this.formReactive = new FormGroup({
       id: new FormControl(null),
-      name: new FormControl(null,[Validators.required]),
-      username: new FormControl(null,[Validators.required]),
-      email: new FormControl(null,[Validators.required,Validators.email]),
+      name: new FormControl(null, [Validators.required]),
+      username: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
       address: new FormGroup({
         street: new FormControl(null),
         suite: new FormControl(null),
         city: new FormControl(null),
         zipcode: new FormControl(null),
         geo: new FormGroup({
-          lat: new FormControl(null,[Validators.required, Validators.pattern(/^(-?\d{1,2}\.\d{4})$/)]),
-          lng: new FormControl(null,[Validators.required, Validators.pattern(/^(-?\d{1,3}\.\d{4})$/)])
+          lat: new FormControl(null, [Validators.required, Validators.pattern('[/^(-?\d{1,2}\.\d{4})$/]*')]),
+          lng: new FormControl(null, [Validators.required, Validators.pattern('[/^(-?\d{1,3}\.\d{4})$/]*')])
         })
       })
     })
